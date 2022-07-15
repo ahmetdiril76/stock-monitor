@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Monitor</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <img src="./stock.jpg" alt="" class="stock-img" height="400">
+    <h1>Stocks Monitor</h1>
+    <p>Choose the stock and number of lots to get a price</p>
+    <div class="main-container">
+        <aside>
+            <button class="btn" id="do-this">DoThis</button>
+            <button class="btn" id="do-that">DoThat</button>
+            <button class="btn" id="and-that">AndThat</button>
+        </aside>
+        
+        <div class="container">
+            <div class="titles">
+                <h1>Stock Name</h1>
+                <h2>Stock Value</h2>
+                <h2>Lower Limit</h2>
+                <h2>Higher Limit</h2>
+            </div>
+        
+            <div class="stock">
+                <select id="stock-one">
+                    <option value="ASELS" selected>ASELSAN</option>
+                    <option value="ISCTR">İŞ BANKASI C</option>
+                    <option value="GARAN">Garanti Bankası</option>
+                    <option value="TKFEN">Tekfen Holding</option>
+                </select>
+                <h5 class="stockvalues" id="stockvalue-one">2345</h5>
+
+                <input type="number" id="alarm-lowlimit-one" placeholder="0" value="1">
+                <input type="number" id="alarm-highlimit-one" placeholder="0" value="1">
+            </div>
+
+            <div class="addnew" id="addnew">
+                <button class="btn" id="addnewbtn">Add another</button>
+            </div>
+            
+            <div class="stock">
+                <select id="stock-two">
+                    <option value="ASELS">ASELSAN</option>
+                    <option value="ISCTR" selected>İŞ BANKASI C</option>
+                    <option value="GARAN">Garanti Bankası</option>
+                    <option value="TKFEN">Tekfen Holding</option>
+                </select>
+                <h5 class="stockvalues" id="stockvalue-two">2345</h5>
+                <input type="number" id="alarm-lowlimit-two" placeholder="0" value="1">
+                <input type="number" id="alarm-highlimit-two" placeholder="0" value="1">
+            </div>
+            <div class="stock">
+                <select id="stock-three">
+                    <option value="ASELS" selected>ASELSAN</option>
+                    <option value="ISCTR">İŞ BANKASI C</option>
+                    <option value="GARAN">Garanti Bankası</option>
+                    <option value="TKFEN">Tekfen Holding</option>
+                </select>
+                <input type="number" id="amount-three" placeholder="0" value="1">
+            </div>
+            <div class="stock">
+                <select id="stock-four">
+                    <option value="ASELS" selected>ASELSAN</option>
+                    <option value="ISCTR">İŞ BANKASI C</option>
+                    <option value="GARAN">Garanti Bankası</option>
+                    <option value="TKFEN">Tekfen Holding</option>
+                </select>
+                <input type="number" id="amount-four" placeholder="0" value="1">
+            </div>
+            <div class="total-stock-worth">
+                <button class="btn" id="calculate-total-btn">
+                    Calculate Stock-Total
+                </button>
+                <div class="total" id="total"> WHATWHATWHAT</div>
+            </div>
+        </>
+    </div>
+    
+
+    <script type="module" src="./script.js"></script>
+</body>
+</html>

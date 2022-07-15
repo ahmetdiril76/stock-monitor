@@ -1,0 +1,123 @@
+:root {
+    --primary-color: rgb(113, 148, 7);
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+
+}
+
+h1 {
+    color: var(--primary-color);
+}
+
+p {
+    text-align: justify;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+
+}
+
+.titles {
+    all: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+aside .btn {
+    padding: 10px;
+    margin: 10px;
+    background-color: red;
+    width: 100%;
+}
+
+.btn {
+    color: white;
+    background: var(--primary-color);
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px 12px;
+}
+
+.stock {
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stock select {
+    padding: 10px 20px 10px 20px;
+    -moz-appearence: none;
+    -webkit-appearence: none;
+    appearence: none;
+    border: 1px solid whitesmoke;
+    font-size: 16px;
+    background: transparent;
+    background-image: url('./caret-down.svg');
+    background-position: right 10px top 50%, 0, 0;
+    background-size: 12px auto, 100%;
+    background-repeat: no-repeat;
+
+}
+
+.stock input {
+    border: 0;
+    background: transparent;
+    font-size: 30px;
+    background-color: orange;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.total-stock-worth {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.total {
+    color: var(--primary-color);
+    font-size: 14px;
+    padding: 0 10px;
+}
+
+select:focus, input:focus, button:focus {
+    outline: 0;
+}
+
+@media (max-width: 600px){
+    .stock input {
+        width:200px
+    }
+}
