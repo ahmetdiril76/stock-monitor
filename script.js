@@ -84,34 +84,51 @@ addNewBtn.addEventListener('click', ()=> {
     
     let newSelectElement = document.createElement("select")
 
-    listOfStockcodes.forEach((x, i) => {
-        console.log(x, i)
-        let newOption = document.createElement("option")
-        newOption.value = x['stockcode']
-        newOption.innerHTML = x['company-name']
-        newSelectElement.appendChild(newOption)
+        listOfStockcodes.forEach((x, i) => {
+            console.log(x, i)
+            let newOption = document.createElement("option")
+            newOption.value = x['stockcode']
+            newOption.innerHTML = x['company-name']
+            newSelectElement.appendChild(newOption)
+            
+        });    
         
-    });
-
-    // let option_1 = document.createElement("option")
-    // option_1.value = "ASELS"
-    // option_1.innerHTML = "ASELSAN"
-    // newSelectElement.appendChild(option_1)
-
-    
-    // let option_2 = document.createElement("option")
-    // option_2.value = "GARAN"
-    // option_2.innerHTML = "Garanti Bank"
-    // newSelectElement.appendChild(option_2)
-    // console.log(newSelectElement)
-
     newStockElement.appendChild(newSelectElement)
-    console.log(newStockElement)
+    
+
+    let newH5 = document.createElement("h5");
+    newH5.innerHTML = "99.99"
+    newStockElement.appendChild(newH5)
+    
+    let newInputLow = document.createElement("input");
+    newInputLow.type = "number";
+    newInputLow.placeholder="0"
+    newInputLow.className = "alarm-lowlimit";
+    newStockElement.appendChild(newInputLow)
+
+
+    let newInputHigh = document.createElement("input");
+    newInputHigh.type = "number";
+    newInputHigh.placeholder="0"
+    newInputHigh.className = "alarm-highlimit";
+    newStockElement.appendChild(newInputHigh)
+    
+    console.log("newStockElement: ", newStockElement, "  ends here")
+
+    //need to fix this.making the whole div text
+
+    // newStockElement.addEventListener('change', 
+    //     offlineRefreshStockValue(
+    //         newStockElement.value, 
+    //         newStockElement
+    //     )
+    // );
+
+        console.log("later: ", newStockElement)
     // newStockElement.innerText = "Another stock"
     let target = document.getElementById("addnew")
     target.before(newStockElement)
 })
-
 
 
 // stockEl_one.addEventListener('select', ()=>{
