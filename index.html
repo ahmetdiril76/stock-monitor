@@ -8,8 +8,41 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <img src="./stock.jpg" alt="" class="stock-img" height="400">
+    <nav>
+        <div class="logo">
+            <img src="./finance.png" alt="finance">
+        </div>
+        <ul>
+            <li><a href="#">This page</a> </li>
+            <li><a href="#">Portfolio</a> </li>
+            <li><a href="#">Contacts</a> </li>
+        </ul>
+    </nav>
+    <header>
+        <button class="toggle" id="toggle">
+            <img src="./bars.png" alt="bars" height="50">
+        </button>
+        <h2>Landing Page</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto facere eligendi, libero atque blanditiis quam voluptas? Ab aut fugit eos, enim vel magnam ratione quibusdam harum at tempora iusto quisquam!</p> 
+        <button class="cta-btn" id="open">Sign Up</button>
+    </header>
+
+
+
+
+    <img src="./stock.jpg" alt="" class="stock-img" height="100">
     <h1>Stocks Monitor</h1>
+    
+    <!-- <div class="svg-container" 
+    style="background-color: #35595e; color: white; fill:transparent; 
+    stroke: white; stroke-width: 4px; stroke-linecap: round;">
+        <svg height="250" width="350" class="figure-container">
+            <line x1="60" y1="20" x2="120" y2="20"></line>
+            <line x1="60" y1="120" x2="120" y2="120"></line>
+            <circle cx="90" cy="70" r="50"></circle>
+        </svg>
+    </div> -->
+
     <p>Choose the stock and number of lots to get a price</p>
     <div class="main-container">
         <aside>
@@ -18,10 +51,10 @@
             <button class="btn" id="and-that">AndThat</button>
         </aside>
         
-        <div class="container">
+        <div class="stocks-container">
             <div class="titles">
                 <h1>Stock Name</h1>
-                <h2>Stock Value</h2>
+                <h2>Current Stock Value</h2>
                 <h2>Lower Limit</h2>
                 <h2>Higher Limit</h2>
             </div>
@@ -78,7 +111,41 @@
                 </button>
                 <div class="total" id="total"> WHATWHATWHAT</div>
             </div>
-        </>
+        </div>
+    </div>
+
+    <div class="modal-container" id="modal">
+        <div class="modal">
+            <button class="close-btn" id="close">
+                <img src="./close.png" alt="" height="50">
+            </button>
+            <div class="modal-header">
+                <h3>Sign Up</h3>
+            </div>
+            <div class="modal-content">
+                <p>Register with us to monitor stocks</p>
+                <form class="modal-form">
+                    <div>
+                        <label for="name">Name</label>
+                        <input type="text" class="form-input" id="name" placeholder="Enter Name">
+                    </div>
+                    <div>
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter Email">
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter Password">
+                    </div>
+                    <div>
+                        <label for="password2">Confirm Password</label>
+                        <input type="password" id="password2" class="form-input" placeholder="Enter Password Again">
+                    </div>
+                    <input type="submit" value="Submit" class="submit-btn">
+                </form>
+                
+            </div>
+        </div>
     </div>
     
 

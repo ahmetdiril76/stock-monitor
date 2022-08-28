@@ -1,0 +1,24 @@
+{
+    "BIST": [
+        {
+            "stockcode": "ISCTR",
+            "company-name": "İş Bankası"
+        },
+        {
+            "stockcode": "ASELS",
+            "company-name": "Aselsan"
+        },
+        {
+            "stockcode": "GARAN",
+            "company-name": "Garanti Bankası"
+        },
+        {
+            "stockcode": "TKFEN",
+            "company-name": "Tekfen Holding"
+        },
+        {
+            "stockcode": "HALKB",
+            "company-name": "Halk Bankası"
+        }
+    ]
+}

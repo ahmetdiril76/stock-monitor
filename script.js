@@ -1,3 +1,31 @@
+import jsonOfStockcodes  from './list-of-stockcodes.json' assert { type: "json" };
+const listOfStockcodes = jsonOfStockcodes.BIST
+console.log(listOfStockcodes)
+
+const toggle = document.getElementById("toggle")
+const close = document.getElementById("close")
+const open = document.getElementById("open")
+const modal = document.getElementById("modal")
+
+//Toggle nav
+toggle.addEventListener('click', ()=> {
+    document.body.classList.toggle('show-nav')
+})
+
+//Show modal
+open.addEventListener('click', ()=>{
+    modal.classList.add('show-modal')
+})
+
+//Hide modal
+close.addEventListener('click', ()=>{
+    modal.classList.remove('show-modal')
+})
+
+//Hide modal on outside click
+window.addEventListener('click', e => 
+    e.target == modal ? modal.classList.remove('show-modal') : false)
+
 const stockEl_one = document.getElementById("stock-one")
 const lowlimitEl_one = document.getElementById("alarm-lowlimit-one")
 const highlimitEl_one = document.getElementById("alarm-highlimit-one")
@@ -17,7 +45,7 @@ stockEl_one.addEventListener('change',()=>{
     // selectedStocks.stock_one.stockName = newStockName
     console.log("selectedStocks:  ", selectedStocks)
     console.log("came here", newStockName);
-    refreshStockValue(
+    offlineRefreshStockValue(
         newStockName, 
         document.getElementById("stockvalue-one"),
         selectedStocks,
@@ -30,7 +58,7 @@ stockEl_one.addEventListener('change',()=>{
 ); //it is a select list so change event
 
 stockEl_two.addEventListener('change', 
-    refreshStockValue(
+    offlineRefreshStockValue(
         document.getElementById("stock-two").value, 
         document.getElementById("stockvalue-two")
     )
@@ -47,23 +75,35 @@ calculateBtn.addEventListener('click', ()=> {
     console.log('blabla')
 })
 
+
+
 addNewBtn.addEventListener('click', ()=> {
     console.log('addnew')
     let newStockElement = document.createElement("div")
     newStockElement.classList.add("stock")
     
     let newSelectElement = document.createElement("select")
-    let option_1 = document.createElement("option")
-    option_1.value = "ASELS"
-    option_1.innerHTML = "ASELSAN"
-    newSelectElement.appendChild(option_1)
+
+    listOfStockcodes.forEach((x, i) => {
+        console.log(x, i)
+        let newOption = document.createElement("option")
+        newOption.value = x['stockcode']
+        newOption.innerHTML = x['company-name']
+        newSelectElement.appendChild(newOption)
+        
+    });
+
+    // let option_1 = document.createElement("option")
+    // option_1.value = "ASELS"
+    // option_1.innerHTML = "ASELSAN"
+    // newSelectElement.appendChild(option_1)
 
     
-    let option_2 = document.createElement("option")
-    option_2.value = "GARAN"
-    option_2.innerHTML = "Garanti Bank"
-    newSelectElement.appendChild(option_2)
-    console.log(newSelectElement)
+    // let option_2 = document.createElement("option")
+    // option_2.value = "GARAN"
+    // option_2.innerHTML = "Garanti Bank"
+    // newSelectElement.appendChild(option_2)
+    // console.log(newSelectElement)
 
     newStockElement.appendChild(newSelectElement)
     console.log(newStockElement)
@@ -83,6 +123,20 @@ async function refreshStockValue(stockcode, valueToBeChanged, selectedStocks, st
     const res = await fetch(`https://query1.finance.yahoo.com/v10/finance/quoteSummary/${stockcode}.IS?modules=price`)
     const data = await res.json()
     const stockvalue = data.quoteSummary.result[0].price.regularMarketPrice.raw
+    
+    if (selectedStocks) {selectedStocks = selectedStocks.map(
+                        element => element.stock === stock 
+                        ? {...element, stockcode: stockcode, stockvalue: stockvalue } 
+                        : element);
+        console.log("full array:  ", selectedStocks)
+    }
+    changeValue(stockvalue, valueToBeChanged)
+    
+}
+
+async function offlineRefreshStockValue(stockcode, valueToBeChanged, selectedStocks, stock){
+    
+    const stockvalue = 77.77
     
     if (selectedStocks) {selectedStocks = selectedStocks.map(
                         element => element.stock === stock 
