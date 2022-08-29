@@ -1,30 +1,6 @@
 import jsonOfStockcodes  from './list-of-stockcodes.json' assert { type: "json" };
 const listOfStockcodes = jsonOfStockcodes.BIST
-console.log(listOfStockcodes)
-
-const toggle = document.getElementById("toggle")
-const close = document.getElementById("close")
-const open = document.getElementById("open")
-const modal = document.getElementById("modal")
-
-//Toggle nav
-toggle.addEventListener('click', ()=> {
-    document.body.classList.toggle('show-nav')
-})
-
-//Show modal
-open.addEventListener('click', ()=>{
-    modal.classList.add('show-modal')
-})
-
-//Hide modal
-close.addEventListener('click', ()=>{
-    modal.classList.remove('show-modal')
-})
-
-//Hide modal on outside click
-window.addEventListener('click', e => 
-    e.target == modal ? modal.classList.remove('show-modal') : false)
+// console.log(listOfStockcodes)
 
 const stockEl_one = document.getElementById("stock-one")
 const lowlimitEl_one = document.getElementById("alarm-lowlimit-one")
@@ -43,8 +19,8 @@ const addNewBtn = document.getElementById("addnewbtn")
 stockEl_one.addEventListener('change',()=>{
     let newStockName = document.getElementById("stock-one").value;
     // selectedStocks.stock_one.stockName = newStockName
-    console.log("selectedStocks:  ", selectedStocks)
-    console.log("came here", newStockName);
+    // console.log("selectedStocks:  ", selectedStocks)
+    // console.log("came here", newStockName);
     offlineRefreshStockValue(
         newStockName, 
         document.getElementById("stockvalue-one"),
@@ -55,7 +31,7 @@ stockEl_one.addEventListener('change',()=>{
     
 } 
     
-); //it is a select list so change event
+); //it is a select list so we use change event
 
 stockEl_two.addEventListener('change', 
     offlineRefreshStockValue(
@@ -72,20 +48,20 @@ stockEl_two.addEventListener('change',
 // highlimitEl_two.addEventListener('input', calculate); //input will be number or arrows
 
 calculateBtn.addEventListener('click', ()=> {
-    console.log('blabla')
+    // console.log('blabla')
 })
 
 
 
 addNewBtn.addEventListener('click', ()=> {
-    console.log('addnew')
+    console.log('addnew EL triggered')
     let newStockElement = document.createElement("div")
     newStockElement.classList.add("stock")
     
     let newSelectElement = document.createElement("select")
 
         listOfStockcodes.forEach((x, i) => {
-            console.log(x, i)
+            // console.log(x, i)
             let newOption = document.createElement("option")
             newOption.value = x['stockcode']
             newOption.innerHTML = x['company-name']
@@ -97,7 +73,7 @@ addNewBtn.addEventListener('click', ()=> {
     
 
     let newH5 = document.createElement("h5");
-    newH5.innerHTML = "99.99"
+    newH5.innerHTML = "comes default"
     newStockElement.appendChild(newH5)
     
     let newInputLow = document.createElement("input");
@@ -113,18 +89,20 @@ addNewBtn.addEventListener('click', ()=> {
     newInputHigh.className = "alarm-highlimit";
     newStockElement.appendChild(newInputHigh)
     
-    console.log("newStockElement: ", newStockElement, "  ends here")
+    // console.log("newSelectElement.value : ", newSelectElement.value, "  ends here")
 
     //need to fix this.making the whole div text
 
-    // newStockElement.addEventListener('change', 
-    //     offlineRefreshStockValue(
-    //         newStockElement.value, 
-    //         newStockElement
-    //     )
-    // );
+    newStockElement.addEventListener('change',()=> {
+        console.log("event listener triggered with: ",newSelectElement.value);
+        offlineRefreshStockValue(
+            newSelectElement.value, 
+            newH5
+        )}
+        // console.log("event listener triggered with: ",newH5)
+    );
 
-        console.log("later: ", newStockElement)
+        // console.log("later: ", newStockElement)
     // newStockElement.innerText = "Another stock"
     let target = document.getElementById("addnew")
     target.before(newStockElement)
@@ -145,7 +123,7 @@ async function refreshStockValue(stockcode, valueToBeChanged, selectedStocks, st
                         element => element.stock === stock 
                         ? {...element, stockcode: stockcode, stockvalue: stockvalue } 
                         : element);
-        console.log("full array:  ", selectedStocks)
+        console.log("full array of selectedStocks:  ", selectedStocks)
     }
     changeValue(stockvalue, valueToBeChanged)
     
@@ -153,7 +131,7 @@ async function refreshStockValue(stockcode, valueToBeChanged, selectedStocks, st
 
 async function offlineRefreshStockValue(stockcode, valueToBeChanged, selectedStocks, stock){
     
-    const stockvalue = 77.77
+    const stockvalue = "changed with refresh"
     
     if (selectedStocks) {selectedStocks = selectedStocks.map(
                         element => element.stock === stock 
@@ -166,8 +144,8 @@ async function offlineRefreshStockValue(stockcode, valueToBeChanged, selectedSto
 }
 
 function changeValue(stockvalue, valueToBeChanged){
-    console.log("stockvalue is", stockvalue, "value to be changed: ", valueToBeChanged)
-    console.log("innerHTML is", valueToBeChanged.innerHTML)
+    // console.log("stockvalue is", stockvalue, "value to be changed: ", valueToBeChanged)
+    // console.log("innerHTML is", valueToBeChanged.innerHTML)
     valueToBeChanged.innerHTML = stockvalue
 }
 
