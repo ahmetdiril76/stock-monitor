@@ -2,43 +2,44 @@ import jsonOfStockcodes  from './list-of-stockcodes.json' assert { type: "json" 
 const listOfStockcodes = jsonOfStockcodes.BIST
 // console.log(listOfStockcodes)
 
-const stockEl_one = document.getElementById("stock-one")
-const lowlimitEl_one = document.getElementById("alarm-lowlimit-one")
-const highlimitEl_one = document.getElementById("alarm-highlimit-one")
+// const stockEl_one = document.getElementById("stock-one")
+// const lowlimitEl_one = document.getElementById("alarm-lowlimit-one")
+// const highlimitEl_one = document.getElementById("alarm-highlimit-one")
 
-const stockEl_two = document.getElementById("stock-two")
-const lowlimitEl_two = document.getElementById("alarm-lowlimit-two")
-const highlimitEl_two = document.getElementById("alarm-highlimit-two")
+// const stockEl_two = document.getElementById("stock-two")
+// const lowlimitEl_two = document.getElementById("alarm-lowlimit-two")
+// const highlimitEl_two = document.getElementById("alarm-highlimit-two")
 
 const totalEl = document.getElementById("total")
 const calculateBtn = document.getElementById("calculate-total-btn")
 
 const selectedStocks = [ {stock: 'stock_one'}, {stock: 'stock_two'} ]
 const addNewBtn = document.getElementById("addnewbtn")
+const manualRefreshBtn = document.getElementById("manual-refresh")
 
-stockEl_one.addEventListener('change',()=>{
-    let newStockName = document.getElementById("stock-one").value;
-    // selectedStocks.stock_one.stockName = newStockName
-    // console.log("selectedStocks:  ", selectedStocks)
-    // console.log("came here", newStockName);
-    offlineRefreshStockValue(
-        newStockName, 
-        document.getElementById("stockvalue-one"),
-        selectedStocks,
-        'stock_one'
-    )
+// stockEl_one.addEventListener('change',()=>{
+//     let newStockName = document.getElementById("stock-one").value;
+//     // selectedStocks.stock_one.stockName = newStockName
+//     // console.log("selectedStocks:  ", selectedStocks)
+//     // console.log("came here", newStockName);
+//     refreshStockValue(
+//         newStockName, 
+//         document.getElementById("stockvalue-one"),
+//         selectedStocks,
+//         'stock_one'
+//     )
     
     
-} 
+// } 
     
-); //it is a select list so we use change event
+// ); //it is a select list so we use change event
 
-stockEl_two.addEventListener('change', 
-    offlineRefreshStockValue(
-        document.getElementById("stock-two").value, 
-        document.getElementById("stockvalue-two")
-    )
-);
+// stockEl_two.addEventListener('change', 
+//     offlineRefreshStockValue(
+//         document.getElementById("stock-two").value, 
+//         document.getElementById("stockvalue-two")
+//     )
+// );
 
 // stockEl_two.addEventListener('change', calculate);
 
@@ -51,6 +52,9 @@ calculateBtn.addEventListener('click', ()=> {
     // console.log('blabla')
 })
 
+manualRefreshBtn.addEventListener('click', ()=> {
+    console.log('MANUAL REFRESH INITIATED')
+})
 
 
 addNewBtn.addEventListener('click', ()=> {
@@ -88,6 +92,10 @@ addNewBtn.addEventListener('click', ()=> {
     newInputHigh.placeholder="0"
     newInputHigh.className = "alarm-highlimit";
     newStockElement.appendChild(newInputHigh)
+
+    let newAlarm = document.createElement("h5");
+    newAlarm.innerHTML = "NO"
+    newStockElement.appendChild(newAlarm)
     
     // console.log("newSelectElement.value : ", newSelectElement.value, "  ends here")
 
@@ -95,7 +103,7 @@ addNewBtn.addEventListener('click', ()=> {
 
     newStockElement.addEventListener('change',()=> {
         console.log("event listener triggered with: ",newSelectElement.value);
-        offlineRefreshStockValue(
+        refreshStockValue(
             newSelectElement.value, 
             newH5
         )}

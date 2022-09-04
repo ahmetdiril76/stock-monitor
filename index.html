@@ -10,7 +10,7 @@
 <body>
     
     <header>
-        <h2>Landing Page</h2>
+        <h2>Don't forget CORS!!!</h2>
     </header>
 
     <img src="./stock.jpg" alt="" class="stock-img" height="100">
@@ -19,7 +19,7 @@
     <p>Choose the stock and number of lots to get a price</p>
     <div class="main-container">
         <aside>
-            <button class="btn" id="do-this">DoThis</button>
+            <button class="btn" id="manual-refresh">MANUAL REFRESH</button>
             <button class="btn" id="do-that">DoThat</button>
             <button class="btn" id="and-that">AndThat</button>
         </aside>
@@ -30,36 +30,27 @@
                 <h2>Current Stock Value</h2>
                 <h2>Lower Limit</h2>
                 <h2>Higher Limit</h2>
+                <h2>Alarm</h2>
             </div>
         
-            <div class="stock">
+            <!-- <div class="stock">
                 <select id="stock-one">
                     <option value="ASELS" selected>ASELSAN</option>
                     <option value="ISCTR">İŞ BANKASI C</option>
                     <option value="GARAN">Garanti Bankası</option>
                     <option value="TKFEN">Tekfen Holding</option>
                 </select>
-                <h5 class="stockvalues" id="stockvalue-one">2345</h5>
+                <h5 class="stockvalues" id="stockvalue-one">İlk_açılış</h5>
 
-                <input type="number" id="alarm-lowlimit-one" placeholder="0" value="1">
-                <input type="number" id="alarm-highlimit-one" placeholder="0" value="1">
-            </div>
+                <input type="number" id="alarm-lowlimit-one" placeholder="0" value="0">
+                <input type="number" id="alarm-highlimit-one" placeholder="0" value="0">
+                <h5 class="alarmvalues" id="alarmvalue-one">NO</h5>
+            </div> -->
 
             <div class="addnew" id="addnew">
-                <button class="btn" id="addnewbtn">Add another</button>
+                <button class="btn" id="addnewbtn">Add stock</button>
             </div>
             
-            <div class="stock">
-                <select id="stock-two">
-                    <option value="ASELS">ASELSAN</option>
-                    <option value="ISCTR" selected>İŞ BANKASI C</option>
-                    <option value="GARAN">Garanti Bankası</option>
-                    <option value="TKFEN">Tekfen Holding</option>
-                </select>
-                <h5 class="stockvalues" id="stockvalue-two">2345</h5>
-                <input type="number" id="alarm-lowlimit-two" placeholder="0" value="1">
-                <input type="number" id="alarm-highlimit-two" placeholder="0" value="1">
-            </div>
             <div class="total-stock-worth">
                 <button class="btn" id="calculate-total-btn">
                     Calculate Stock-Total
@@ -69,40 +60,6 @@
         </div>
     </div>
 
-    <div class="modal-container" id="modal">
-        <div class="modal">
-            <button class="close-btn" id="close">
-                <img src="./close.png" alt="" height="50">
-            </button>
-            <div class="modal-header">
-                <h3>Sign Up</h3>
-            </div>
-            <div class="modal-content">
-                <p>Register with us to monitor stocks</p>
-                <form class="modal-form">
-                    <div>
-                        <label for="name">Name</label>
-                        <input type="text" class="form-input" id="name" placeholder="Enter Name">
-                    </div>
-                    <div>
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" class="form-input" placeholder="Enter Email">
-                    </div>
-                    <div>
-                        <label for="password">Password</label>
-                        <input type="password" id="password" class="form-input" placeholder="Enter Password">
-                    </div>
-                    <div>
-                        <label for="password2">Confirm Password</label>
-                        <input type="password" id="password2" class="form-input" placeholder="Enter Password Again">
-                    </div>
-                    <input type="submit" value="Submit" class="submit-btn">
-                </form>
-                
-            </div>
-        </div>
-    </div>
-    
 
     <script type="module" src="./script.js"></script>
 </body>

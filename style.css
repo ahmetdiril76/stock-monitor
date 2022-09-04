@@ -212,10 +212,12 @@ p {
 
 .titles {
     all: none;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 250px 250px 250px 250px 200px;
+    /* flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
 aside {
@@ -243,10 +245,14 @@ aside .btn {
 }
 
 .stock {
-    padding: 40px 0;
+    all: none;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 250px 250px 250px 250px 200px;
+    /* padding: 40px 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
 }
 
 .stock select {
