@@ -1,5 +1,8 @@
 import jsonOfStockcodes  from './list-of-stockcodes.json' assert { type: "json" };
 const listOfStockcodes = jsonOfStockcodes.BIST
+
+// import { saveAs } from './FileSaver';
+
 // console.log(listOfStockcodes)
 
 // const stockEl_one = document.getElementById("stock-one")
@@ -16,6 +19,9 @@ const calculateBtn = document.getElementById("calculate-total-btn")
 const selectedStocks = [ {stock: 'stock_one'}, {stock: 'stock_two'} ]
 const addNewBtn = document.getElementById("addnewbtn")
 const manualRefreshBtn = document.getElementById("manual-refresh")
+const saveToFileBtn = document.getElementById("save-to-file")
+const readFromFileBtn = document.getElementById("read-from-file")
+
 
 // stockEl_one.addEventListener('change',()=>{
 //     let newStockName = document.getElementById("stock-one").value;
@@ -56,6 +62,46 @@ manualRefreshBtn.addEventListener('click', ()=> {
     console.log('MANUAL REFRESH INITIATED')
 })
 
+saveToFileBtn.addEventListener('click', ()=> {
+    console.log('SAVE TO FILE INITIATED')
+})
+
+readFromFileBtn.addEventListener('click', ()=> {
+    console.log('READ FROM FILE INITIATED')
+})
+
+saveToFileBtn.addEventListener('click', ()=> {
+    let allListedStocks = document.querySelectorAll(".stock")
+
+    let csvContent = "data:text/csv;charset=utf-8;";
+
+    allListedStocks.forEach((currentStock,i) => {
+        console.log(currentStock)
+        let currentSelect = currentStock.getElementsByTagName("select")[0]
+        console.log(currentSelect)
+        let currentValue = currentSelect.value  
+        console.log(currentValue)
+        let currentText = currentSelect.options[currentSelect.selectedIndex].text
+        console.log(currentText)
+        let currentFetchedValue = currentStock.getElementsByTagName("h5")[0].innerHTML
+        console.log(currentFetchedValue)
+        let currentAlarmLowLimit = currentStock.getElementsByTagName("input")[0].value
+        console.log(currentAlarmLowLimit)
+        let currentAlarmHighLimit = currentStock.getElementsByTagName("input")[1].value
+        console.log(currentAlarmHighLimit)
+        let currentAlarmValue = currentStock.getElementsByTagName("h4")[0].innerHTML
+        console.log(currentAlarmValue)
+
+        let rowArray = [ currentValue, currentText, currentFetchedValue,
+                    currentAlarmLowLimit, currentAlarmHighLimit, currentAlarmValue ]
+        let row = rowArray.join(";");
+        csvContent += row + "\r\n";        
+
+    })
+    
+    console.log(csvContent);
+    // saveAs( csvContent, "myString.txt" );
+})
 
 addNewBtn.addEventListener('click', ()=> {
     console.log('addnew EL triggered')
@@ -63,6 +109,7 @@ addNewBtn.addEventListener('click', ()=> {
     newStockElement.classList.add("stock")
     
     let newSelectElement = document.createElement("select")
+    newSelectElement.classList.add("stock-select")
 
         listOfStockcodes.forEach((x, i) => {
             // console.log(x, i)
@@ -76,14 +123,15 @@ addNewBtn.addEventListener('click', ()=> {
     newStockElement.appendChild(newSelectElement)
     
 
-    let newH5 = document.createElement("h5");
-    newH5.innerHTML = "comes default"
-    newStockElement.appendChild(newH5)
+    let newFetchedStockValue = document.createElement("h5");
+    newFetchedStockValue.classList.add("fetched-stock-value")
+    newFetchedStockValue.innerHTML = "comes default"
+    newStockElement.appendChild(newFetchedStockValue)
     
     let newInputLow = document.createElement("input");
     newInputLow.type = "number";
     newInputLow.placeholder="0"
-    newInputLow.className = "alarm-lowlimit";
+    newInputLow.classList.add = "alarm-lowlimit";
     newStockElement.appendChild(newInputLow)
 
 
@@ -93,7 +141,8 @@ addNewBtn.addEventListener('click', ()=> {
     newInputHigh.className = "alarm-highlimit";
     newStockElement.appendChild(newInputHigh)
 
-    let newAlarm = document.createElement("h5");
+    let newAlarm = document.createElement("h4");
+    newAlarm.classList.add("current-alarm-value")
     newAlarm.innerHTML = "NO"
     newStockElement.appendChild(newAlarm)
     
@@ -103,9 +152,9 @@ addNewBtn.addEventListener('click', ()=> {
 
     newStockElement.addEventListener('change',()=> {
         console.log("event listener triggered with: ",newSelectElement.value);
-        refreshStockValue(
+        offlineRefreshStockValue(
             newSelectElement.value, 
-            newH5
+            newFetchedStockValue
         )}
         // console.log("event listener triggered with: ",newH5)
     );
