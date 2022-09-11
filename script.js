@@ -19,8 +19,8 @@ const calculateBtn = document.getElementById("calculate-total-btn")
 const selectedStocks = [ {stock: 'stock_one'}, {stock: 'stock_two'} ]
 const addNewBtn = document.getElementById("addnewbtn")
 const manualRefreshBtn = document.getElementById("manual-refresh")
-const saveToFileBtn = document.getElementById("save-to-file")
-const readFromFileBtn = document.getElementById("read-from-file")
+const saveToLocalStorageBtn = document.getElementById("save-to-local-storage")
+const readFromLocalStorageBtn = document.getElementById("read-from-local-storage")
 
 
 // stockEl_one.addEventListener('change',()=>{
@@ -62,45 +62,65 @@ manualRefreshBtn.addEventListener('click', ()=> {
     console.log('MANUAL REFRESH INITIATED')
 })
 
-saveToFileBtn.addEventListener('click', ()=> {
-    console.log('SAVE TO FILE INITIATED')
+// saveToLocalStorageBtn.addEventListener('click', ()=> {
+//     console.log('SAVE TO LOCAL STORAGE INITIATED')
+// })
+
+readFromLocalStorageBtn.addEventListener('click', ()=> {
+    console.log('READ FROM LOCAL STORAGE INITIATED')
+    const stocksFromLocalStorageString = JSON.parse(localStorage.getItem('stocksArraySavedString'));
+    console.log(stocksFromLocalStorageString )
 })
 
-readFromFileBtn.addEventListener('click', ()=> {
-    console.log('READ FROM FILE INITIATED')
-})
-
-saveToFileBtn.addEventListener('click', ()=> {
+saveToLocalStorageBtn.addEventListener('click', ()=> {
     let allListedStocks = document.querySelectorAll(".stock")
 
-    let csvContent = "data:text/csv;charset=utf-8;";
+    // let csvContent = "data:text/csv;charset=utf-8;";
+    let stocksArray = []
 
     allListedStocks.forEach((currentStock,i) => {
-        console.log(currentStock)
+        // console.log(currentStock)
         let currentSelect = currentStock.getElementsByTagName("select")[0]
-        console.log(currentSelect)
-        let currentValue = currentSelect.value  
-        console.log(currentValue)
-        let currentText = currentSelect.options[currentSelect.selectedIndex].text
-        console.log(currentText)
+        // console.log(currentSelect)
+        let currentStockCode = currentSelect.value  
+        // console.log(currentStockCode)
+        let currentStockName = currentSelect.options[currentSelect.selectedIndex].text
+        // console.log(currentStockName)
         let currentFetchedValue = currentStock.getElementsByTagName("h5")[0].innerHTML
-        console.log(currentFetchedValue)
+        // console.log(currentFetchedValue)
         let currentAlarmLowLimit = currentStock.getElementsByTagName("input")[0].value
-        console.log(currentAlarmLowLimit)
+        // console.log(currentAlarmLowLimit)
         let currentAlarmHighLimit = currentStock.getElementsByTagName("input")[1].value
-        console.log(currentAlarmHighLimit)
+        // console.log(currentAlarmHighLimit)
         let currentAlarmValue = currentStock.getElementsByTagName("h4")[0].innerHTML
-        console.log(currentAlarmValue)
+        // console.log(currentAlarmValue)
 
-        let rowArray = [ currentValue, currentText, currentFetchedValue,
-                    currentAlarmLowLimit, currentAlarmHighLimit, currentAlarmValue ]
-        let row = rowArray.join(";");
-        csvContent += row + "\r\n";        
+        let rowJson = {
+            "stockcode": currentStockCode, 
+            "company-name": currentStockName,
+            "last-fetched-value": currentFetchedValue,
+            "alarm-low-limit": currentAlarmLowLimit,
+            "alarm-high-limit": currentAlarmHighLimit,
+            "alarm-value": currentAlarmValue            
+        }
+        
+        // let row = rowArray.join(";");
+        // csvContent += row + "\r\n";        
+        stocksArray.push(rowJson)
 
     })
     
-    console.log(csvContent);
-    // saveAs( csvContent, "myString.txt" );
+    let stocksString = stocksArray.toString();
+    // console.log(stocksString.substring(2,10));
+    // localStorage.removeItem('stocksString');
+    // localStorage.setItem('stocksString', stocksString);
+    // // saveAs( csvContent, "myString.txt" );
+
+
+    let stocksArrayToSave = [...allListedStocks] 
+    console.log(stocksArrayToSave)
+    localStorage.setItem('stocksArraySavedString', JSON.stringify(stocksArrayToSave))
+
 })
 
 addNewBtn.addEventListener('click', ()=> {
