@@ -13,6 +13,51 @@ const listOfStockcodes = jsonOfStockcodes.BIST
 // const lowlimitEl_two = document.getElementById("alarm-lowlimit-two")
 // const highlimitEl_two = document.getElementById("alarm-highlimit-two")
 
+
+const fileInput = document.getElementById('csv')
+const readFile = () => {
+  const reader = new FileReader()
+  reader.onload = () => {
+    document.getElementById('out').innerHTML = reader.result
+  }
+  // start reading the file. When it is done, calls the onload event defined above.
+  reader.readAsBinaryString(fileInput.files[0])
+}
+
+fileInput.addEventListener('change', readFile)
+
+
+
+
+
+const exportBtn = document.getElementById("export-btn")
+exportBtn.addEventListener('click', ()=> {
+    console.log('EXPORT INITIATED')
+    exportData()
+})
+
+function exportData() {
+    var data = '';
+    for (var i=1;i<=2;i++) {
+        var sep = '';
+        for (var j=1;j<=4;j++) {
+            data +=  sep + document.getElementById(i + '_' + j).value;
+            sep = ',';
+        }
+        data += '\r\n';
+    }
+    var exportLink = document.createElement('a');
+    exportLink.setAttribute('href', 'data:text/csv;base64,' + window.btoa(data));
+    exportLink.appendChild(document.createTextNode('test.csv'));
+    document.getElementById('results').appendChild(exportLink);
+}
+
+
+
+
+
+
+
 const totalEl = document.getElementById("total")
 const calculateBtn = document.getElementById("calculate-total-btn")
 
@@ -68,9 +113,85 @@ manualRefreshBtn.addEventListener('click', ()=> {
 
 readFromLocalStorageBtn.addEventListener('click', ()=> {
     console.log('READ FROM LOCAL STORAGE INITIATED')
-    const stocksFromLocalStorageString = JSON.parse(localStorage.getItem('stocksArraySavedString'));
-    console.log(stocksFromLocalStorageString )
+    const stocksArrayFromLocalStorageString = JSON.parse(localStorage.getItem('stocksStringSaved'));
+    console.log(stocksArrayFromLocalStorageString )
+
+    if (stocksArrayFromLocalStorageString !== null && 
+        stocksArrayFromLocalStorageString.length > 0) 
+        {
+        // populate browser from local Storage array
+            console.log("SUCCESS")
+
+            stocksArrayFromLocalStorageString.forEach((restoredStock, i) => {
+                createStockElement(restoredStock)            
+            });
+
+        }
 })
+
+function createStockElement(restoredStock){
+    let newStockElement = document.createElement("div")
+    newStockElement.classList.add("stock")
+    
+    let newSelectElement = document.createElement("select")
+    newSelectElement.classList.add("stock-select")
+
+        listOfStockcodes.forEach((x, i) => {
+            // console.log(x, i)
+            let newOption = document.createElement("option")
+            newOption.value = x['stockcode']
+            newOption.innerHTML = x['company-name']
+            newSelectElement.appendChild(newOption)
+            
+        });    
+    newSelectElement.value = restoredStock.stockcode
+    
+    newStockElement.appendChild(newSelectElement)
+    
+
+    let newFetchedStockValue = document.createElement("h5");
+    newFetchedStockValue.classList.add("fetched-stock-value")
+    newFetchedStockValue.innerHTML = restoredStock['last-fetched-value']
+    newStockElement.appendChild(newFetchedStockValue)
+    
+    let newInputLow = document.createElement("input");
+    newInputLow.type = "number";
+    newInputLow.value=restoredStock['alarm-low-limit']
+    newInputLow.classList.add = "alarm-lowlimit";
+    newStockElement.appendChild(newInputLow)
+
+
+    let newInputHigh = document.createElement("input");
+    newInputHigh.type = "number";
+    newInputHigh.value=restoredStock['alarm-high-limit']
+    newInputHigh.className = "alarm-highlimit";
+    newStockElement.appendChild(newInputHigh)
+
+    let newAlarm = document.createElement("h4");
+    newAlarm.classList.add("current-alarm-value")
+    newAlarm.innerHTML = restoredStock['alarm-value']
+    newStockElement.appendChild(newAlarm)
+    
+    // console.log("newSelectElement.value : ", newSelectElement.value, "  ends here")
+
+    //need to fix this.making the whole div text
+
+    newStockElement.addEventListener('change',()=> {
+        console.log("event listener triggered with: ",newSelectElement.value);
+        offlineRefreshStockValue(
+            newSelectElement.value, 
+            newFetchedStockValue
+        )}
+        // console.log("event listener triggered with: ",newH5)
+    );
+
+        // console.log("later: ", newStockElement)
+    // newStockElement.innerText = "Another stock"
+    let target = document.getElementById("addnew")
+    target.before(newStockElement)
+
+}
+
 
 saveToLocalStorageBtn.addEventListener('click', ()=> {
     let allListedStocks = document.querySelectorAll(".stock")
@@ -109,19 +230,25 @@ saveToLocalStorageBtn.addEventListener('click', ()=> {
         stocksArray.push(rowJson)
 
     })
-    
-    let stocksString = stocksArray.toString();
-    // console.log(stocksString.substring(2,10));
+    console.log("stocksArray: ", stocksArray)
+    // let stocksString = stocksArray.toString();
+    let stocksString = JSON.stringify(stocksArray)
+    console.log("stocksString: ", stocksString);
+    // console.log("stocksString: ",stocksString.substring(2,10));
     // localStorage.removeItem('stocksString');
-    // localStorage.setItem('stocksString', stocksString);
+    localStorage.setItem('stocksStringSaved', stocksString);
     // // saveAs( csvContent, "myString.txt" );
 
 
-    let stocksArrayToSave = [...allListedStocks] 
-    console.log(stocksArrayToSave)
-    localStorage.setItem('stocksArraySavedString', JSON.stringify(stocksArrayToSave))
+    // let stocksArrayToSave = [...allListedStocks] 
+    // console.log(stocksArrayToSave[1])
+    // localStorage.setItem('stocksArraySavedString', JSON.stringify(stocksArrayToSave))
+
+    
 
 })
+
+
 
 addNewBtn.addEventListener('click', ()=> {
     console.log('addnew EL triggered')

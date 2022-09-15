@@ -17,6 +17,40 @@
     <h1>Stocks Monitor</h1>
     
     <p>Choose the stock and number of lots to get a price</p>
+
+    
+    <div>
+        <p>Select local CSV File:</p>
+        <input id="csv" type="file" accept=".csv">
+    </div>
+    <pre id="out"><p>File contents will appear here</p></pre>
+
+
+
+
+
+
+
+
+    <input type="number" id="1_1" value="2">,
+    <input type="number" id="1_2" value="1">,
+    <input type="number" id="1_3" value="4">,
+    <input type="number" id="1_4" value="3">
+    <br>
+    <input type="number" id="2_1" value="1">,
+    <input type="number" id="2_2" value="2">,
+    <input type="number" id="2_3" value="3">,
+    <input type="number" id="2_4" value="4">
+    <br>
+    <button id="export-btn">Export as CSV</button>
+    <div id="results"></div>
+
+
+
+
+
+
+
     <div class="main-container">
         <aside>
             <button class="btn" id="manual-refresh">MANUAL REFRESH</button>
