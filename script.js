@@ -1,56 +1,51 @@
 import jsonOfStockcodes  from './list-of-stockcodes.json' assert { type: "json" };
 const listOfStockcodes = jsonOfStockcodes.BIST
 
-// import { saveAs } from './FileSaver';
-
-// console.log(listOfStockcodes)
-
-// const stockEl_one = document.getElementById("stock-one")
-// const lowlimitEl_one = document.getElementById("alarm-lowlimit-one")
-// const highlimitEl_one = document.getElementById("alarm-highlimit-one")
-
-// const stockEl_two = document.getElementById("stock-two")
-// const lowlimitEl_two = document.getElementById("alarm-lowlimit-two")
-// const highlimitEl_two = document.getElementById("alarm-highlimit-two")
 
 
-const fileInput = document.getElementById('csv')
-const readFile = () => {
-  const reader = new FileReader()
-  reader.onload = () => {
-    document.getElementById('out').innerHTML = reader.result
-  }
-  // start reading the file. When it is done, calls the onload event defined above.
-  reader.readAsBinaryString(fileInput.files[0])
-}
+// READING FROM CSV
 
-fileInput.addEventListener('change', readFile)
+// const fileInput = document.getElementById('csv')
+// const readFile = () => {
+//   const reader = new FileReader()
+//   reader.onload = () => {
+//     document.getElementById('out').innerHTML = reader.result
+//   }
+//   // start reading the file. When it is done, calls the onload event defined above.
+//   reader.readAsBinaryString(fileInput.files[0])
+// }
+
+// fileInput.addEventListener('change', readFile)
 
 
 
 
 
-const exportBtn = document.getElementById("export-btn")
-exportBtn.addEventListener('click', ()=> {
-    console.log('EXPORT INITIATED')
-    exportData()
-})
 
-function exportData() {
-    var data = '';
-    for (var i=1;i<=2;i++) {
-        var sep = '';
-        for (var j=1;j<=4;j++) {
-            data +=  sep + document.getElementById(i + '_' + j).value;
-            sep = ',';
-        }
-        data += '\r\n';
-    }
-    var exportLink = document.createElement('a');
-    exportLink.setAttribute('href', 'data:text/csv;base64,' + window.btoa(data));
-    exportLink.appendChild(document.createTextNode('test.csv'));
-    document.getElementById('results').appendChild(exportLink);
-}
+
+// EXPORTING AS CSV
+
+// const exportBtn = document.getElementById("export-btn")
+// exportBtn.addEventListener('click', ()=> {
+//     console.log('EXPORT INITIATED')
+//     exportData()
+// })
+
+// function exportData() {
+//     var data = '';
+//     for (var i=1;i<=2;i++) {
+//         var sep = '';
+//         for (var j=1;j<=4;j++) {
+//             data +=  sep + document.getElementById(i + '_' + j).value;
+//             sep = ',';
+//         }
+//         data += '\r\n';
+//     }
+//     var exportLink = document.createElement('a');
+//     exportLink.setAttribute('href', 'data:text/csv;base64,' + window.btoa(data));
+//     exportLink.appendChild(document.createTextNode('test.csv'));
+//     document.getElementById('results').appendChild(exportLink);
+// }
 
 
 
@@ -105,6 +100,29 @@ calculateBtn.addEventListener('click', ()=> {
 
 manualRefreshBtn.addEventListener('click', ()=> {
     console.log('MANUAL REFRESH INITIATED')
+    let allListedStocks = document.querySelectorAll(".stock")
+
+    // let csvContent = "data:text/csv;charset=utf-8;";
+    let stocksArray = []
+
+    allListedStocks.forEach((currentStock,i) => {
+        console.log(currentStock)
+
+        let currentSelect = currentStock.getElementsByTagName("select")[0]
+        // console.log(currentSelect)
+        let currentStockCode = currentSelect.value  
+        console.log(currentStockCode)
+        // let currentStockName = currentSelect.options[currentSelect.selectedIndex].text
+        // // console.log(currentStockName)
+        let currentFetchedValue = currentStock.getElementsByTagName("h5")[0].innerHTML
+        console.log(currentFetchedValue)
+        let currentAlarmLowLimit = currentStock.getElementsByTagName("input")[0].value
+        console.log(currentAlarmLowLimit)
+        let currentAlarmHighLimit = currentStock.getElementsByTagName("input")[1].value
+        console.log(currentAlarmHighLimit)
+        // let currentAlarmValue = currentStock.getElementsByTagName("h4")[0].innerHTML
+        // console.log(currentAlarmValue)
+    })
 })
 
 // saveToLocalStorageBtn.addEventListener('click', ()=> {

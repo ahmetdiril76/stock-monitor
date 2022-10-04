@@ -1,8 +1,32 @@
 {
     "BIST": [
         {
-            "stockcode": "ISCTR",
-            "company-name": "İş Bankası"
+            "stockcode": "AEFES",
+            "company-name": "Anadolu Efes"
+        },
+        {
+            "stockcode": "AFYON",
+            "company-name": "Afyon Çimento"
+        },
+        {
+            "stockcode": "AGHOL",
+            "company-name": "Anadolu Holding"
+        },
+        {
+            "stockcode": "AKBNK",
+            "company-name": "Akbank"
+        },
+        {
+            "stockcode": "AKCNS",
+            "company-name": "Akçansa"
+        },
+        {
+            "stockcode": "AKFGY",
+            "company-name": "Akfen GYO"
+        },
+        {
+            "stockcode": "AKGRT",
+            "company-name": "Ak Sigorta"
         },
         {
             "stockcode": "ASELS",
@@ -13,12 +37,16 @@
             "company-name": "Garanti Bankası"
         },
         {
-            "stockcode": "TKFEN",
-            "company-name": "Tekfen Holding"
-        },
-        {
             "stockcode": "HALKB",
             "company-name": "Halk Bankası"
+        },
+        {
+            "stockcode": "ISCTR",
+            "company-name": "İş Bankası"
+        },    
+        {
+            "stockcode": "TKFEN",
+            "company-name": "Tekfen Holding"
         }
     ]
 }
