@@ -114,12 +114,27 @@ manualRefreshBtn.addEventListener('click', ()=> {
         console.log(currentStockCode)
         // let currentStockName = currentSelect.options[currentSelect.selectedIndex].text
         // // console.log(currentStockName)
-        let currentFetchedValue = currentStock.getElementsByTagName("h5")[0].innerHTML
-        console.log(currentFetchedValue)
+        let currentFetchedValue = currentStock.getElementsByTagName("h5")[0]
+        console.log(currentFetchedValue.innerHTML)
+
+        refreshStockValue( currentStockCode, currentFetchedValue );
+
+        console.log(currentFetchedValue.innerHTML)
+        
         let currentAlarmLowLimit = currentStock.getElementsByTagName("input")[0].value
         console.log(currentAlarmLowLimit)
         let currentAlarmHighLimit = currentStock.getElementsByTagName("input")[1].value
         console.log(currentAlarmHighLimit)
+
+        if (+currentAlarmLowLimit < +currentFetchedValue.innerHTML < +currentAlarmHighLimit) {
+            console.log("ALAAARRRM!");
+            currentStock.getElementsByTagName("h4")[0].innerHTML = "YES"
+            soundAlarm();
+
+        // console.log(currentAlarmValue)
+
+        }
+        else {console.log ("SUTLIMAAAN")}
         // let currentAlarmValue = currentStock.getElementsByTagName("h4")[0].innerHTML
         // console.log(currentAlarmValue)
     })
@@ -146,6 +161,16 @@ readFromLocalStorageBtn.addEventListener('click', ()=> {
 
         }
 })
+
+function soundAlarm(){
+    var mp3_url = 'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3';
+    var mp3_local = 'beep.mp3';
+    var mp3_scifi = 'alarmscifi.wav'
+    
+    var audio = new Audio(mp3_scifi)
+    audio.volume = 0.3;
+    audio.play();
+}
 
 function createStockElement(restoredStock){
     let newStockElement = document.createElement("div")
@@ -196,7 +221,7 @@ function createStockElement(restoredStock){
 
     newStockElement.addEventListener('change',()=> {
         console.log("event listener triggered with: ",newSelectElement.value);
-        offlineRefreshStockValue(
+        refreshStockValue(
             newSelectElement.value, 
             newFetchedStockValue
         )}
@@ -317,7 +342,7 @@ addNewBtn.addEventListener('click', ()=> {
 
     newStockElement.addEventListener('change',()=> {
         console.log("event listener triggered with: ",newSelectElement.value);
-        offlineRefreshStockValue(
+        refreshStockValue(
             newSelectElement.value, 
             newFetchedStockValue
         )}
